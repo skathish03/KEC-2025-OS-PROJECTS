@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CPU Scheduling Simulator</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index.js">
+</head>
+<body>
+    <div class="container">
+        <h1>CPU Scheduling Simulator</h1>
+        <table id="processTable">
+            <tr>
+                <th>Process</th>
+                <th>Burst Time</th>
+            </tr>
+        </table>
+        <button class="button" onclick="simulate()">Simulate</button>
+        <div id="result"></div>
+    </div>
+</body>
+<script>
+    function simulate() {
+    var table = document.getElementById("processTable");
+    var rows = table.getElementsByTagName("tr");
+    var processes = [];
+
+    // Iterate over each row in the table
+    for (var i = 1; i < rows.length; i++) {
+        var cells = rows[i].getElementsByTagName("td");
+        var process = {
+            name: i - 1,
+            burst_time: parseInt(cells[1].innerText)
+        };
+        processes.push(process);
+    }
+
+    // Call the scheduling algorithm (e.g., Round Robin)
+    var quantum = 5; // Set the quantum value as desired
+    roundRobin(processes, quantum);
+}
+
+function roundRobin(processes, quantum) {
+    var waitingTime = new Array(processes.length).fill(0);
+    var turnaroundTime = new Array(processes.length).fill(0);
+    var totalWaitingTime = 0;
+    var totalTurnaroundTime = 0;
+
+    var queue = [...processes];
+
+    while (queue.length > 0) {
+        var process = queue.shift();
+
+        if (process.burst_time > quantum) {
+            process.burst_time -= quantum;
+            queue.push(process);
+        } else {
+            waitingTime[process.name] = totalTurnaroundTime;
+            totalTurnaroundTime += process.burst_time;
+        }
+    }
+
+    var avgWaitingTime = totalWaitingTime / processes.length;
+    var avgTurnaroundTime = totalTurnaroundTime / processes.length;
+
+    var resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = "<h2>Simulation Result</h2>";
+    resultDiv.innerHTML += "<table><tr><th>Process</th><th>Burst Time</th><th>Waiting Time</th><th>Turnaround Time</th></tr>";
+    for (var i = 0; i < processes.length; i++) {
+        var process = processes[i];
+        var row = "<tr><td>P" + process.name + "</td><td>" + process.burst_time + "</td><td>" + waitingTime[i] + "</td><td>" + turnaroundTime[i] + "</td></tr>";
+        resultDiv.innerHTML += row;
+    }
+    resultDiv.innerHTML += "</table>";
+    resultDiv.innerHTML += "<p>Average Waiting Time: " + avgWaitingTime + "</p>";
+    resultDiv.innerHTML += "<p>Average Turnaround Time: " + avgTurnaroundTime + "</p>";
+}
+</script>
+</html>

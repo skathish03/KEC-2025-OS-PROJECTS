@@ -1,0 +1,11 @@
+.buttonAlgo{
+    border-radius: 15px !important; 
+    width: 70px;
+}
+.navbar{
+    text-align: center;
+    background-color: aliceblue;
+}
+#timeQuantum{
+  width: 80px;
+}

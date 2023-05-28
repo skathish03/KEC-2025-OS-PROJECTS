@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPU Scheduling Simulator</title>
+    <link rel="stylesheet" href="cpu.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="cpu.css">
+    <script src="cpu.js" type="text/javascript"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">CPU Scheduling Simulator</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="sam.html">Stimulator</a>
+              </li>
+            </ul>
+          </nav>
+          
+    </header><br><br>
+    <section class="FCFS" id="FCFS">
+        <div class="container">
+            <div class="row-3 border border-primary p-3 mb-2">
+                <b><h3 style="color: blueviolet;">First Come First Serve</h3></b>
+                <p>First Come First Serve CPU Scheduling Algorithm shortly known as FCFS is the first algorithm of CPU Process Scheduling Algorithm. In First Come First Serve Algorithm what we do is to allow the process to execute in linear manner.
+                    This means that whichever process enters process enters the ready queue first is executed first. This shows that First Come First Serve Algorithm follows First In First Out (FIFO) principle.
+                    The First Come First Serve Algorithm can be executed in Pre Emptive and Non Pre Emptive manner. Before, going into examples, let us understand what is Pre Emptive and Non Pre Emptive Approach in CPU Process Scheduling.</p>
+            </div>
+        </div>
+    </section>
+    <section class="SJFS" id="SJFS">
+        <div class="container">
+            <div class="row-3 border border-primary p-3 mb-2">
+                <b><h3 style="color: blueviolet;">Shortest Job First CPU Scheduling </h3></b>
+                <p>The Shortest Job is heavily dependent on the Burst Times. Every CPU Scheduling Algorithm is basically dependent on the Arrival Times. Here, in this Shortest Job First CPU Scheduling Algorithm, the CPU allots its resources to the process which is in ready queue and the process which has least Burst Time.
+                    If we face a condition where two processes are present in the Ready Queue and their Burst Times are same, we can choose any process for execution. In actual Operating Systems, if we face the same problem then sequential allocation of resources takes place.</p>
+            </div>
+        </div>
+    </section>
+    <section class="Priority" id="Priority">
+        <div class="container">
+            <div class="row-3 border border-primary p-3 mb-2">
+                <b><h3 style="color: blueviolet;">Priority CPU Scheduling </h3></b>
+                <p>The Priority CPU Scheduling is different from the remaining CPU Scheduling Algorithms. Here, each and every process has a certain Priority number.
+                    There are two types of Priority Values.
+                    <ul>
+                        <li>Highest Number is considered as Highest Priority Value</li>
+                        <li>Lowest Number is considered as Lowest Priority Value</li>
+                    </ul>
+                    
+                    Characteristics
+                    <ul>
+                        <li>Priority CPU scheduling organizes tasks according to importance</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    
+</body>
+</html>
