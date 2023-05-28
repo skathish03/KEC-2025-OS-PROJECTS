@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<head>
+    <title>OPERATING SYSTEM - PROJECT</title>
+    <link rel="icon" type="image/x-icon" href="F:\SEM - 4\OS\Project\Sources\icon.png">
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <img src="F:\SEM - 4\OS\Project\Sources\KEC 1.png" alt="logo1" style="height: 10%; width: 8%; padding-left : 1px">
+        <div class="content">
+            <h1 style="font-family:'Archivo'; font-size:30px; font-weight: 800;">KONGU ENGINEERING COLLEGE</h1>
+            <h5 style="font-family:'Archivo'; font-size:12px; font-weight: 700; line-height: 0.3;">(AUTUNOMOUS)</h5>
+            <h3 style="font-family:'Archivo'; font-size:18px; font-weight: 800; line-height: 0.3;">PERUNDURAI, ERODE - 638060.</h3>
+        </div>
+        <img src="F:\SEM - 4\OS\Project\Sources\KEC 2.png" alt="logo2" style="height: 10%; width: 10%; padding-top: 4px">
+    </div>
+    <br>
+    <h1 style="font-family:'Archivo'; font-size:30px; font-weight: 800; text-align:center;">20CST43 - OPERATING SYSTEM PROJECT</h1><br>
+    <h1 style="font-family:'Archivo'; font-size:30px; font-weight: 500; text-align:center;">PAGE REPLACEMENT ALGORITHM</h1>
+    
+    <form name="inpform">
+        <div class = "inpdiv">
+            <br><br>
+            <label style="font-family:'Archivo';font-size:20px;color:rgb(60, 60, 60);">Enter the page reference string</label><br><br>
+            <input type="text" placeholder="Ex:10 20 30 40 50" class="inp" id="inp1" required><br><br><br>
+            <label style="font-family:'Archivo';font-size:20px;color:rgb(60, 60, 60);">Enter the page frame value</label><br><br>
+            <input type="number" min = "1" placeholder="Ex:5" class="inp" id="inp2" required><br><br><br>
+            <button class="submitbtn" onclick="validate()">SUBMIT</button><br><br><br>
+            
+            
+            <h1 id="s1" class="show"></h1><br>
+            <h1 id="s2" class="show"></h1><br><br>
+            <h1 id="t1" style="font-size:25px" class="show"></h1>
+            <h1 id="a1" style="font-size:18px;color:  rgb(50, 50, 50)" class="show"></h1><br><br>
+    
+            <h1 id="t2" style="font-size:25px" class="show"></h1>
+            <h1 id="a2" style="font-size:18px;color:  rgb(50, 50, 50)" class="show"></h1><br><br>
+    
+            <h1 id="t3" style="font-size:25px" class="show"></h1>
+            <h1 id="a3" style="font-size:18px;color:  rgb(50, 50, 50)" class="show"></h1><br><br>
+    
+        </div>
+    </form>
+
+    <p style="font-size:20px; color:rgb(100, 100, 100);" class="show" id="tit1"></p>
+    <p style="font-size:20px; color:rgb(100, 100, 100);line-height:30px;" class="show" id="tit2"></p>
+
+
+</body>

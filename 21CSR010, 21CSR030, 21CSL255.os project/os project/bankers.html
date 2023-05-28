@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Banker's Algo</title>
+  <link rel="stylesheet" href="./bankers.css" />
+</head>
+
+<body style="background-color: black;">
+  <div class="design">
+  <h1>BANKERS ALGORITHM</h1>
+  <label id="process">Enter no. of process</label>
+  <input id="processbox" type="text" value="0" onchange="setProcess(this.value)" />
+  <br />
+
+  <label id="resource">Enter no. of resources</label>
+  <input id="resourcebox" type="text" value="0" onchange="setResource(this.value)" />
+  <br />
+  <label id="ab">Enter the available Resources</label>
+  <input type="text" value="0" id="toAvailable" />
+  <br/>
+  <button onclick="showtable()">CALCULATE</button>
+  <br />
+
+  <table id="demo">
+    <tr>
+      <th>Allocation</th>
+      <th>Max</th>
+    </tr>
+  </table>
+  <br />
+  <button id="re" onclick="calculate()">NEED AND SAFE STATE</button>
+  <br />
+  <table id="calc">
+    <tr>
+      <th>Need</th>
+    </tr>
+  </table>
+  <div id="root"></div>
+</div>
+</body>
+</html>
+<script>
+  let resources = 0;
+  let process = 0;
+  let available = "";
+  let availableArray = [];
+
+  function setResource(e) {
+    resources = e;
+    console.log(resources);
+  }
+  function setProcess(e) {
+    process = e;
+  }
+
+  function showtable() {
+    availableArray = document.getElementById("toAvailable").value.split(" ");
+    for (let i = 0; i < process; i++) {
+      document.getElementById(
+        "demo"
+      ).innerHTML += `<tr><td ><input type='text' id='alloc ${i}'/></td> <td><input type='text'  id='max ${i}'/></td></tr>`;
+    }
+
+    console.log("avai array ", availableArray);
+    for (let i = 0; i < resources; i++) {
+      availableArray[i] = parseInt(availableArray[i]);
+    }
+  }
+  function calculate() {
+    let waste=false;
+    let x=false;
+    let needMatrix = []; //max-alloc
+    let allocArray = [];
+    for (let i = 0; i < process; i++) {
+      const alloc = document.getElementById(`alloc ${i}`).value;
+      const max = document.getElementById(`max ${i}`).value;
+      let alloc_to_mat = alloc.split(" ");
+      allocArray[i] = alloc_to_mat; //allocation array
+
+      let maxArray = max.split(" ");
+      let ans = "";
+
+      for (let j = 0; j < resources; j++) {
+        ans +=
+          (parseInt(maxArray[j]) - parseInt(alloc_to_mat[j])).toString() +
+          " ";
+      
+      let checker = (parseInt(maxArray[j]) - parseInt(alloc_to_mat[j]));
+        if (checker < 0) {
+          waste = true;
+        }
+      }
+      needMatrix[i] = ans.split(" ");
+
+      //to convert string to integer
+      document.getElementById("calc").innerHTML += `<tr><td>${ans}</td></tr>`;
+    }
+  if(waste==false){
+    //final need matrix is
+    console.log("need ", needMatrix, availableArray);
+    let sequenceArray = [];
+    let count = 0;
+    while (count < process) {
+      let mat_change = [...availableArray];
+
+      for (let i = 0; i < process; i++) {
+        let dead = false;
+        if (!sequenceArray.includes(i)) {
+          for (let j = 0; j < resources; j++) {
+            let check = availableArray[j] - needMatrix[i][j];
+
+            console.log(needMatrix[i][j], availableArray[j], check);
+            if (check < 0) dead = true;
+          }
+          if (!dead) {
+            //push i in sequence
+            sequenceArray.push(i);
+
+            for (let k = 0; k < resources; k++) {
+              availableArray[k] =
+                availableArray[k] + parseInt(allocArray[i][k]);
+            }
+            console.log("avai array in loop ", availableArray);
+          } else {
+            console.log("not good");
+            // break;
+          }
+        }
+      }
+      console.log("check ", availableArray, mat_change);
+      if (sequenceArray.length == process) {
+        console.log("no deadlock");
+        const ele = document.createElement("h2");
+        ele.innerHTML = `The Safe Sequence is `;
+
+        for (let i = 0; i < sequenceArray.length; i++) {
+          ele.innerHTML += ` P${sequenceArray[i]} `;
+        }
+
+        ele.innerHTML += ">";
+        document.getElementById("root").appendChild(ele);
+        break;
+      }
+      if (availableArray == mat_change) {
+        console.log("deadlock");
+        break;
+      }
+      count++;
+    }
+    if (sequenceArray.length != process) {
+      const ele = document.createElement("h1");
+
+      ele.innerHTML = "DeadLock!";
+      document.getElementById("root").appendChild(ele);
+    }
+  }
+  else{
+    const ele = document.createElement("h1");
+
+      ele.innerHTML = "DeadLock Need shoud not be negative";
+      document.getElementById("root").appendChild(ele);
+  }
+}
+</script>
