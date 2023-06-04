@@ -1,0 +1,17 @@
+{% extends 'home.html' %}
+
+{% block instance %}
+<form action="add" method="post">
+    {% csrf_token %}
+    <div class="b1">
+        <h2 style="color: white;">Enter the No.of Instances</h2>
+        {% for i in d %}
+            <input type="text" name="ins{{ i }}" class="ibox1" required>
+        {% endfor %}
+        <input type="submit" class="btn2" value="Go">
+        <input type="hidden" name="p1" value="{{ c }}">
+        <input type="hidden" name="r1" value="{{ d }}">
+    </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<form action="check" method="post">
+    {% csrf_token %}
+<div class="b1">
+<div>
+    <h1 style="color: aqua;">Process</h1>
+    {% for i in c %}
+    <h2 style="color: white;margin-top:28px;">P{{i}}</h2>
+    {% endfor %}
+</div>
+<div>
+    <center><h1 style="color: aqua;">Max</h1></center>
+    {% for i in c %}
+        <div class="b1">
+        {% for j in d %}
+            <input type="text" name="m{{ i }}{{ j }}" class="ibox" required>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+</div>
+<div>
+    <center><h1 style="color: aqua;">Allocation</h1></center>
+    {% for i in c %}
+        <div class="b1">
+        {% for j in d %}
+            <input type="text" name="a{{ i }}{{ j }}" class="ibox" required>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+{% if h == "success" %}
+<div>
+    <center><h1 style="color: aqua;">Need</h1></center>
+    {% for i in need %}
+        <div class="b1">
+        {% for j in i %}
+            <input type="text" name="n{{ i }}{{ j }}" value="{{ j }}" class="ibox">
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+</div>
+<center><input type="submit" class="btn1" value="CHECK"></center>
+<input type="hidden" name="p1" value="{{ c }}">
+        <input type="hidden" name="r1" value="{{ d }}">
+        <input type="hidden" name="lis" value="{{ lis }}">
+</form>
+
+{% if h == "success" %}
+<center><h1 style="color:lawngreen;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">The Safe Sequence is : {{ z }}</h1></center>
+{% elif h == "fail" %}
+<center><h1 style="color:rgb(255, 0, 0);">Invalid Input : {{ z }}</h1></center>
+{% elif h == "dead" %}
+<center><h1 style="color:rgb(255, 0, 0);">Deadlock !!</h1></center>
+{% else %}
+<center><h1></h1></center>
+{% endif %}
+
+{% endblock %}
