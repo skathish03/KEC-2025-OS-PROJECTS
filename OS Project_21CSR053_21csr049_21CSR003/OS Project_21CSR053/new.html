@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Replacement Algorithm Simulator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding-bottom: 110px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        select,
+        input[type="number"],
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #simulationResults {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        .results-heading {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .results-item {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .error-message {
+            color: #ff0000;
+        }
+
+        /* Additional Styles */
+
+        body {
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        select,
+        input[type="number"],
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #eaeaea;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        select:focus,
+        input[type="number"]:focus,
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #simulationResults {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #eaeaea;
+            border-radius: 4px;
+            background-color: #ffffff;
+        }
+
+        .results-heading {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333333;
+        }
+
+        .results-item {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #555555;
+        }
+
+        .error-message {
+            color: #ff0000;
+        }
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #f5f5f5;
+        padding: -15px; /* Adjust the padding value as desired */
+        text-align: center;
+        font-size: 16px;
+    }
+
+
+/* Menu bar styles */
+    header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    }
+
+    nav ul.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    }
+
+    nav ul.menu li {
+    display: inline-block;
+    margin-right: 10px;
+    position: relative;
+    }
+
+    nav ul.menu li:last-child {
+    margin-right: 0;
+    }
+
+    nav ul.menu li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    }
+
+    nav ul.menu li a:hover {
+    background-color: #555;
+    }
+
+    nav ul.menu li .contact {
+    display: none;
+    color: #fff;
+    }
+
+    /* Submenu styles */
+    nav ul.menu li:hover .submenu {
+    display: block;
+    }
+
+    nav ul.menu .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    padding: 10px;
+    min-width: 120px;
+    }
+
+    nav ul.menu .submenu li {
+    display: block;
+    margin-bottom: 8px;
+    }
+
+    nav ul.menu .submenu li a {
+    color: #fff;
+    text-decoration: none;
+    }
+
+    nav ul.menu .submenu li a:hover {
+    text-decoration: underline;
+    }
+    .heart {
+        color: red;
+        font-size: 24px;
+    }
+    #visitor-count {
+            text-align: center;   
+        }
+    .odometer {
+      font-size: 16px;
+    }
+    </style>
+</head>
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-default.min.css" />
+    <header>
+        <nav>
+            <ul class="menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Meet our Team</a>
+                    <ul class="submenu">
+                        <li><a href="#">Gokul P</a></li>
+                        <li><a href="#">Abishek R</a></li>
+                        <li><a href="#">Giridar P</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">References </a>
+                    <ul class="submenu">
+                        <li><a href="https://youtu.be/FWoMSiMep80" target="_blank">Video 1</a></li>
+                        <li><a href="https://youtu.be/DXU7SqsYDvg" target="_blank">Video 2</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://wa.me/+919942741593?text=Hello%20Team%20Rock" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Chat with us
+                    </a>
+                </li>
+                <li><div id="datetime"></div></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <script>
+        // JavaScript code goes here
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update date and time initially
+            updateDateTime();
+    
+            // Update date and time every second
+            setInterval(updateDateTime, 1000);
+        });
+    
+        function updateDateTime() {
+            var datetimeElement = document.getElementById('datetime');
+    
+            // Get the current date and time
+            var currentDate = new Date();
+            var dateTimeString = currentDate.toLocaleString();
+    
+            // Update the datetime element with the current date and time
+            datetimeElement.textContent = dateTimeString;
+        }
+    </script>
+    
+    <div class="container">
+    <h1>Page Replacement Algorithm Simulator</h1>
+    <br>
+    <!-- Add the algorithm selection dropdown -->
+    <label for="algorithm">Select Algorithm:</label>
+    <select id="algorithm" name="algorithm">
+        <option value="fifo">FIFO</option>
+        <option value="lru">LRU</option>
+        <option value="optimal">Optimal</option>
+    </select>
+    <br><br>
+    <!-- Add input fields for frames and page references -->
+    <label for="frames">Frames:</label>
+    <input type="number" id="frames" name="frames" min="1" required><br>
+    <span id="framesError" class="error-message"></span>
+    <br>
+    <label for="pageReferences">Page References:</label>
+    <input type="text" id="pageReferences" name="pageReferences" required><br>
+    <span id="pageReferencesError" class="error-message"></span>
+
+    <!-- Add a button to trigger the simulation -->
+    <button id="runButton">Run Simulation</button>
+
+    <!-- Add a placeholder for displaying the simulation results -->
+    <div id="simulationResults"></div>
+    <footer class="footer">
+        <!-- <p>Website made by Team Rock <span class="heart">&#10084;</span></p> -->
+        <!-- <p>Total visitors: <span id="visitor-count" class="odometer">0</span></p> -->
+        <p>Content owned and updated by <span class="heart">&#10084;</span></p> |Copyright © |All Rights Reserved |Last Updated on : May 14, 2023, 6:37 p.m.| <span style="color: lightseagreen; font-weight: bold;" >Visitors Count:</span><span id="visitor-count" class="odometer">0</span></p>
+    </footer>
+    
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
+  <script>
+    // Function to update visitor count
+    function updateVisitorCount() {
+      // Get the current visitor count from local storage
+      let count = localStorage.getItem("visitorCount");
+      count = count ? parseInt(count) : 0; // Convert count to number, default to 0 if not present
+
+      // Increment the count by 1
+      count += 1;
+
+      // Update the visitor count in local storage
+      localStorage.setItem("visitorCount", count);
+
+      // Update the count in the HTML using odometer.js
+      const countElement = document.getElementById("visitor-count");
+      countElement.innerHTML = count;
+    }
+
+    // Initialize the odometer
+    const odometer = new Odometer({
+      el: document.getElementById("visitor-count"),
+      value: 0,
+      format: "(,ddd)",
+      duration: 1000 // Animation duration in milliseconds
+    });
+
+    // Call the function to update visitor count
+    updateVisitorCount();
+
+    // Start the odometer animation
+    odometer.update(0); // Initial value
+    odometer.update(localStorage.getItem("visitorCount")); // Current value
+  </script>
+
+    <script>
+        // JavaScript code goes here
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the button element
+            var runButton = document.getElementById('runButton');
+                
+            // Attach click event listener to the button
+            runButton.addEventListener('click', runSimulation);
+        });
+
+        function runSimulation() {
+            // Get the selected algorithm, frames, and page references from the form
+    var algorithm = document.getElementById("algorithm").value;
+    var frames = document.getElementById("frames").value;
+    var pageReferences = document.getElementById("pageReferences").value;
+
+    // Get the error message elements
+    var framesError = document.getElementById("framesError");
+    var pageReferencesError = document.getElementById("pageReferencesError");
+
+    // Clear any previous error messages
+    framesError.textContent = "";
+    pageReferencesError.textContent = "";
+
+    // Validate the frames input
+    if (frames === "" || isNaN(frames) || parseInt(frames) < 1) {
+        framesError.textContent = "Invalid frames input";
+        return;
+    }
+
+    // Validate the page references input
+    if (pageReferences === "") {
+        pageReferencesError.textContent = "Page references cannot be empty";
+        return;
+    }
+
+            // Create a JSON payload with the simulation settings
+            var settings = {
+                algorithm: algorithm,
+                frames: parseInt(frames),
+                page_references: pageReferences.split(",")
+            };
+
+            // Send an AJAX request to the backend API
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/simulate", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // On successful response, parse the JSON data and display the results
+                    var results = JSON.parse(xhr.responseText);
+                    displayResults(results);
+                }
+            };
+            xhr.send(JSON.stringify(settings));
+        }
+
+        function displayResults(results) {
+            // Get the simulation results div element
+            var resultsDiv = document.getElementById("simulationResults");
+
+            // Clear any previous results
+            resultsDiv.innerHTML = "";
+
+            // Check if there's an error in the results
+            if (results.error) {
+                // Display the error message
+                var errorText = document.createElement("p");
+                errorText.textContent = "Error: " + results.error;
+                resultsDiv.appendChild(errorText);
+            } else {
+                // Display the page faults
+                var pageFaultsText = document.createElement("p");
+                pageFaultsText.textContent = "Page Faults: " + results.page_faults;
+                resultsDiv.appendChild(pageFaultsText);
+
+                // Display the page frames
+                var pageFramesText = document.createElement("p");
+                pageFramesText.textContent = "Page Frames: " + results.page_frames.join(", ");
+                resultsDiv.appendChild(pageFramesText);
+            }
+        }
+    </script>
+    </div>
+</body>
+</html>

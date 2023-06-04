@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Banker's Algorithm Simulator</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    table, th, td {
+      border: 1px solid black;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Banker's Algorithm Simulator</h1>
+  <table id="allocation">
+    <caption>Allocation Matrix</caption>
+    <tr>
+      <th></th>
+      <th>Resource 1</th>
+      <th>Resource 2</th>
+      <th>Resource 3</th>
+    </tr>
+    <tr>
+      <td>Process 1</td>
+      <td><input type="number" id="p1r1"></td>
+      <td><input type="number" id="p1r2"></td>
+      <td><input type="number" id="p1r3"></td>
+    </tr>
+    <tr>
+      <td>Process 2</td>
+      <td><input type="number" id="p2r1"></td>
+      <td><input type="number" id="p2r2"></td>
+      <td><input type="number" id="p2r3"></td>
+    </tr>
+    <tr>
+      <td>Process 3</td>
+      <td><input type="number" id="p3r1"></td>
+      <td><input type="number" id="p3r2"></td>
+      <td><input type="number" id="p3r3"></td>
+    </tr>
+  </table>
+
+  <table id="max">
+    <caption>Max Matrix</caption>
+    <tr>
+      <th></th>
+      <th>Resource 1</th>
+      <th>Resource 2</th>
+      <th>Resource 3</th>
+    </tr>
+    <tr>
+      <td>Process 1</td>
+      <td><input type="number" id="p1maxr1"></td>
+      <td><input type="number" id="p1maxr2"></td>
+      <td><input type="number" id="p1maxr3"></td>
+    </tr>
+    <tr>
+      <td>Process 2</td>
+      <td><input type="number" id="p2maxr1"></td>
+      <td><input type="number" id="p2maxr2"></td>
+      <td><input type="number" id="p2maxr3"></td>
+    </tr>
+    <tr>
+      <td>Process 3</td>
+      <td><input type="number" id="p3maxr1"></td>
+      <td><input type="number" id="p3maxr2"></td>
+      <td><input type="number" id="p3maxr3"></td>
+    </tr>
+  </table>
+
+  <h2>Available Resources</h2>
+  <table>
+    <tr>
+      <th>Resource 1</th>
+      <th>Resource 2</th>
+      <th>Resource 3</th>
+    </tr>
+    <tr>
+      <td><input type="number" id="availr1"></td>
+      <td><input type="number" id="availr2"></td>
+      <td><input type="number" id="availr3"></td>
+    </tr>
+  </table>
+
+  <button onclick="calculateSafeSequence()">Calculate Safe Sequence</button>
+
+  <h2>Safe Sequence</h2>
+  <p id="safeSequence"></p>
+
+  <script>
+    function calculateSafeSequence() {
+      var allocation = [
+        [
+          parseInt(document.getElementById("p1r1").value),
+          parseInt(document.getElementById("p1r2").value),
+          parseInt(document.getElementById("p1r3").value)
+        ],
+        [
+          parseInt(document.getElementById("p2r1").value),
+          parseInt(document.getElementById("p2r2").value),
+          parseInt(document.getElementById("p2r3").value)
+        ],
+        [
+          parseInt(document.getElementById("p3r1").value),
+          parseInt(document.getElementById("p3r2").value),
+          parseInt(document.getElementById("p3r3").value)
+        ]
+      ];
+
+      var max = [
+        [
+          parseInt(document.getElementById("p1maxr1").value),
+          parseInt(document.getElementById("p1maxr2").value),
+          parseInt(document.getElementById("p1maxr3").value)
+        ],
+        [
+          parseInt(document.getElementById("p2maxr1").value),
+          parseInt(document.getElementById("p2maxr2").value),
+          parseInt(document.getElementById("p2maxr3").value)
+        ],
+        [
+          parseInt(document.getElementById("p3maxr1").value),
+          parseInt(document.getElementById("p3maxr2").value),
+          parseInt(document.getElementById("p3maxr3").value)
+        ]
+      ];
+
+      var available = [
+        parseInt(document.getElementById("availr1").value),
+        parseInt(document.getElementById("availr2").value),
+        parseInt(document.getElementById("availr3").value)
+      ];
+
+      var work = available.slice();
+      var finish = [false, false, false];
+      var safeSequence = [];
+
+      var need = [];
+      for (var i = 0; i < allocation.length; i++) {
+        need[i] = [];
+        for (var j = 0; j < allocation[i].length; j++) {
+          need[i][j] = max[i][j] - allocation[i][j];
+        }
+      }
+
+      var count = 0;
+      while (count < allocation.length) {
+        var found = false;
+        for (var i = 0; i < allocation.length; i++) {
+          if (!finish[i]) {
+            var j;
+            for (j = 0; j < work.length; j++) {
+              if (need[i][j] > work[j]) {
+                break;
+              }
+            }
+            if (j === work.length) {
+              for (var k = 0; k < work.length; k++) {
+                work[k] += allocation[i][k];
+              }
+              safeSequence.push(i);
+              finish[i] = true;
+              found = true;
+              count++;
+            }
+          }
+        }
+        if (!found) {
+          break;
+        }
+      }
+
+      if (count < allocation.length) {
+        document.getElementById("safeSequence").innerHTML = "No safe sequence exists.";
+      } else {
+        document.getElementById("safeSequence").innerHTML = "Safe Sequence: " + safeSequence.join(" -> ");
+      }
+    }
+  </script>
+</body>
+</html>

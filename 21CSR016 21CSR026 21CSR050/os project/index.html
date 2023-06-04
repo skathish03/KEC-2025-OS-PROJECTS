@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Replacement Algorithms</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="left">
+        <div class="head">Page Replacement Algorithm</div>
+        <div class="inputsection">
+          <div class="frmdiv dd">
+            <label for="noofframes" id="high">Number of Frames:</label>
+            <input type="text" class="noofframes base" required/>
+          </div>
+          <div class="algodiv dd">
+            <label for="pagereplacementalgo" id="high">Page Replacement Algorithm:</label>
+            <select name="pagereplacementalgo" id="algorithm" class="base">
+              <option value="FIFO">First In First Out (FIFO)</option>
+              <option value="LRU">Least Recently Used (LRU)</option>
+              <option value="OPT">Optimal (OPT)</option>
+            </select>
+          </div>
+          <div class="refdiv dd">
+            <label for="references" id="high">Values:</label>
+            <input
+              type="text"
+              id="references"
+              placeholder="type the values in proper order, eg: 1 2 3 4"
+              class="base"
+              required
+            />
+          </div>
+          <div class="summarydiv">
+            <label for="Summary" id="high">Generate Summary:</label>
+            <input type="checkbox" name="Summary" id="Summary" checked />
+          </div>
+          <div class="btndiv">
+            <button onclick="pushData()">Submit</button>
+            <button type="reset" onclick="resetForm()"id="reset">Reset</button>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="output">Output</div>
+        <div class="solution">
+          <div class="part1"></div>
+          <div class="part2">
+            <h2>Output will be generated here</h2>
+            <br />
+            <h2>Fill the input form and click the submit button</h2>
+          </div>
+          <div class="part3"></div>
+        </div>
+      </div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
