@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banker's Algorithm</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Flex Container -->
+    <div class="flex-container">
+      <!-- Grid Container -->
+      <div class="container-grid">
+        <!-- Container 1 -->
+        <div class="container container1">
+          <!-- Allocation -->
+          <h3>Allocation</h3>
+          <div class="flex-process">
+            <div class="process">
+              <p>Resource 1</p>
+              <input type="text" id="input-process-resource1" />
+            </div>
+            <div class="process">
+              <p>Resource 2</p>
+              <input type="text" id="input-process-resource2" />
+            </div>
+            <div class="process">
+              <p>Resource 3</p>
+              <input type="text" id="input-process-resource3" />
+            </div>
+          </div>
+          <p class="error" id="allocation-error">
+            Please insert all 3 resources
+          </p>
+          <input
+            type="button"
+            value="Add Process"
+            class="add-button add-process-button"
+            name="hello"
+          />
+          <!-- Max Matrix -->
+          <h3>Max Matrix</h3>
+          <div class="flex-max">
+            <div class="resource">
+              <p>Resource 1</p>
+              <input type="text" id="input-max-resource1" />
+            </div>
+            <div class="resource">
+              <p>Resource 2</p>
+              <input type="text" id="input-max-resource2" />
+            </div>
+            <div class="resource">
+              <p>Resource 3</p>
+              <input type="text" id="input-max-resource3" />
+            </div>
+          </div>
+          <p class="error" id="max-error">Please insert all 3 resources</p>
+          <input
+            type="button"
+            value="Add Resource"
+            class="add-button add-resource-button"
+          />
+          <!-- Available Resources -->
+          <h3>Available</h3>
+          <div class="flex-available">
+            <div class="available">
+              <p>Resource 1</p>
+              <input type="text" id="input-available-resource1" />
+            </div>
+            <div class="available">
+              <p>Resource 2</p>
+              <input type="text" id="input-available-resource2" />
+            </div>
+            <div class="available">
+              <p>Resource 3</p>
+              <input type="text" id="input-available-resource3" />
+            </div>
+          </div>
+          <p class="error" id="available-error">
+            Please insert all 3 resources
+          </p>
+          <input
+            type="button"
+            value="Calculate"
+            class="add-button calculate-button"
+          />
+        </div>
+        <!-- Container 2 -->
+        <div class="container container2">
+          <!-- Allocation Table -->
+          <h3>Allocation Table</h3>
+          <div class="table">
+            <table>
+              <thead>
+                <th>Process</th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+              </thead>
+              <tbody id="table-allocation-body"></tbody>
+            </table>
+          </div>
+          <!-- Need Matrix -->
+          <h3>Need Matrix</h3>
+          <div class="table">
+            <table>
+              <thead>
+                <th>Process</th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+              </thead>
+              <tbody id="table-need-body"></tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Container 3 -->
+        <div class="container container3">
+          <!-- Max Allocation -->
+          <h3>Max Allocation</h3>
+          <div class="table">
+            <table>
+              <thead>
+                <th>Process</th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+              </thead>
+              <tbody id="table-max-body"></tbody>
+            </table>
+          </div>
+          <!-- Available Table -->
+          <h3>Available Matrix</h3>
+          <div class="table">
+            <table>
+              <thead>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+              </thead>
+              <tbody id="table-available-body"></tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Container 4 -->
+        <div class="container container4">
+          <h3>Self Sequence</h3>
+          <div class="self-sequence">
+            <table class="allocated-table">
+              <thead>
+                <th>Allocated</th>
+              </thead>
+              <tbody id="table-allocated-body"></tbody>
+            </table>
+          </div>
+          <div class="answer">
+            <h2 id="answer">Answer</h2>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
