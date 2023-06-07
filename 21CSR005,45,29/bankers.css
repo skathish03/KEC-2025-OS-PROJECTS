@@ -1,0 +1,159 @@
+html,
+body {
+  height: 100%;
+}
+
+*{
+  background-color: rgb(124, 175, 175);
+  font-family:cursive;
+  font-size: medium;
+  font-style: oblique;
+  font-display: center;
+}
+
+html {
+  display: table;
+  margin: auto;
+}
+
+body {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: medium;
+  /* justify-content: center;
+  align-items: center; */
+  background-color: rgb(0, 128, 115);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45aa4a;
+}
+
+#centerbutton {
+  display: flex;
+  margin-left: 150px;
+  align-items: center;
+  justify-content: center;
+}
+
+#ab{
+  margin-bottom: 10px;
+  padding: 8px;
+  text-align: center;
+  background-color: rgb(84, 0, 219);
+  color: white;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#process {
+  margin-bottom: 10px;
+  padding: 8px;
+  text-align: center;
+  background-color: rgb(161, 219, 0);
+  color: white;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#resource {
+  margin-bottom: 10px;
+  padding: 8px;
+  text-align: center;
+  background-color: rgb(161, 219, 0);
+  color: white;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#processbox {
+  display: flex;
+  margin-left: 140px;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+#resourcebox {
+  
+  margin-left: 140px;
+  align-items: center;
+  justify-content: center;
+}
+
+#asc{
+  margin-left:110px;
+}
+
+#av{
+  padding: 5px;
+  text-align: center;
+  background-color: rgb(161, 219, 0);
+  color: white;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#toAvailable{
+  
+  margin-left: 140px;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+
+}
+
+input[type="text"] {
+  border-radius: 50px;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+table {
+
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border-radius: 50px;
+  border: 1px transparent;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: rgb(77, 213, 4);
+  color: white;
+}
+
+h1 {
+  font-size: 18px;
+  color: #ff0000;
+  margin-top: 20px;
+}
+
+h2 {
+  font-size: 18px;
+  color: #45a049;
+  margin-top: 20px;
+}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Banker's Algo</title>
+  <link rel="stylesheet" href="./bankers.css" />
+
+  <script>
+    let resources = 0;
+    let process = 0;
+    let available = "";
+    let availableArray = [];
+  
+    function setResource(e) {
+      resources = e;
+      // console.log(resources);
+    }
+    function setProcess(e) {
+      process = e;
+    }
+  
+    function showtable() {
+      availableArray = document.getElementById("toAvailable").value.split(" ");
+      console.log("showing the table")
+      for (let i = 0; i < process; i++) {
+        document.getElementById("demo").innerHTML += `<tr><td >P${i}<input type='text' id='alloc ${i}'/></td> <td><input type='text'  id='max ${i}'/></td></tr>`;
+      }
+  
+      console.log("available array ", availableArray);
+      for (let i = 0; i < resources; i++) {
+        availableArray[i] = parseInt(availableArray[i]);
+      }
+    }
+
+
+    function calculate() {
+      let waste=false;
+      let needMatrix = [];
+      let allocArray = [];
+      for (let i = 0; i < process; i++) {
+        const alloc = document.getElementById(`alloc ${i}`).value;
+        const max = document.getElementById(`max ${i}`).value;
+        let alloc_to_mat = alloc.split(" ");
+        allocArray[i] = alloc_to_mat;
+  
+        let maxArray = max.split(" ");
+        let ans = "";
+  
+        for (let j = 0; j < resources; j++) {
+          ans +=
+            (parseInt(maxArray[j]) - parseInt(alloc_to_mat[j])).toString() + " ";
+          checker =  (parseInt(maxArray[j]) - parseInt(alloc_to_mat[j]))
+          if(checker<0)
+          {
+            waste=true;
+          }
+
+        }
+        needMatrix[i] = ans.split(" ");
+        document.getElementById("calc").innerHTML += `<tr><td>${ans}</td></tr>`;
+      }
+  if(waste==false)
+    {  console.log("need ", needMatrix, availableArray);
+      let sequenceArray = [];
+      let count = 0;
+      while (count < process) {
+        let mat_change = [...availableArray];
+  
+        for (let i = 0; i < process; i++) {
+          let dead = false;
+          if (!sequenceArray.includes(i)) {
+            for (let j = 0; j < resources; j++) {
+              let check = availableArray[j] - needMatrix[i][j];
+  
+              console.log(needMatrix[i][j], availableArray[j], check);
+              if (check < 0) dead = true;
+            }
+            if (!dead) {
+              sequenceArray.push(i);
+  
+              for (let k = 0; k < resources; k++) {
+                availableArray[k] =
+                  availableArray[k] + parseInt(allocArray[i][k]);
+              }
+              // console.log("avaiLABLE array in loop ", availableArray);
+            } else {
+              console.log("SOMETHING SUSPECIOUS");
+            }
+          }
+        }
+        console.log("check ", availableArray, mat_change);
+        if (sequenceArray.length == process) {
+          console.log("no deadlock");
+          const ele = document.createElement("h2");
+          ele.innerHTML = `The Safe Sequence is `;
+  
+          for (let i = 0; i < sequenceArray.length; i++) {
+            ele.innerHTML += ` P${sequenceArray[i]} `;
+          }
+  
+          ele.innerHTML += ">";
+          document.getElementById("root").appendChild(ele);
+          break;
+        }
+        if (availableArray == mat_change) {
+          console.log("deadlock");
+          break;
+        }
+        count++;
+      }
+      if (sequenceArray.length != process) {
+        const ele = document.createElement("h1");
+  
+        ele.innerHTML = "DeadLock!  (need > available)";
+        document.getElementById("root").appendChild(ele);
+      }}
+     else{
+
+      const ele = document.createElement("h1");
+  
+        ele.innerHTML = "Max is lesser than allocation";
+        document.getElementById("root").appendChild(ele);
+     }
+    }
+  </script>
+</head>
+
+<body>
+
+  <h2> BANKER'S ALGORITHM</h2>
+  <label id="process">Enter total no of process</label>
+  <input id="processbox" type="text" onchange="setProcess(this.value)" />
+  <br />
+
+  <label id="resource">Enter total no of resoures</label>
+  <input id="resourcebox" type="text" onchange="setResource(this.value)" />
+  <br />
+  <br />
+  <label id="ab">Enter the available Resources</label>
+  <p>*Ex: enter resources as 1 2 3 for A B C</p>
+  <input type="text" id="toAvailable" />
+  <br/>
+  <button onclick="showtable()">Click here to enter allocation and Max</button>
+  <br />
+
+  <table id="demo">
+    <tr>
+      <th>Allocation</th>
+      <th>Max</th>
+    </tr>
+  </table>
+  <br />
+  <button id="re" onclick="calculate()">Calculate Need and Safe Sequence</button>
+  <!-- <button id="re" onclick="safe()">safety sequence</button> -->
+  <br />
+  <table id="calc">
+    <tr>
+      <th>Need</th>
+    </tr>
+  </table>
+  <div id="root"></div>
+</body>
+
+
+</html>
