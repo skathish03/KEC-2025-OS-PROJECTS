@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Fault Calculation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(to bottom right, #e66465, #9198e5);
+    }
+
+    .container {
+      max-width: 400px;
+      padding: 20px;
+      background-color: #a12121;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="number"], input[type="text"], select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      background-color: #007bff;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .result {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .result label {
+      font-weight: bold;
+    }
+
+    .result input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background-color: #f8f9fa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" style="box-shadow: -10px -10px 0px 0px rgb(28, 28, 28);">
+    <h1>Page Fault Calculation</h1>
+
+    <form id="pageForm">
+      <div class="form-group">
+        <label for="methodSelect">Page Replacement Method</label>
+        <select class="form-control" id="methodSelect">
+          <option value="FIFO">First In First Out (FIFO)</option>
+          <option value="LRU">Least Recently Used (LRU)</option>
+          <option value="OPT">Optimal (OPT)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="pageSequenceInput">Page Sequence</label>
+        <input type="text" class="form-control" id="pageSequenceInput" placeholder="Enter page numbers separated by commas">
+      </div>
+      <div class="form-group">
+        <label for="pageSequenceInput1">Page Frame</label>
+        <input type="text" class="form-control" id="pageSequenceInput1" placeholder="Enter the number of frames which is above zero(0 - ∞)" required pattern="^[1-9]\d*$">
+      </div>
+
+      <button  type="submit" class="btn btn-primary">Calculate Page Faults</button>
+    </form>
+
+    <div class="result">
+      <label for="pageFaultsDisplay">Number of Page Faults</label>
+      <input type="text" class="form-control" id="pageFaultsDisplay" readonly>
+    </div>
+  </div>
+
+  <script src="page.js"></script>
+</body>
+</html>
